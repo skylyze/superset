@@ -146,9 +146,12 @@ USER superset
 ######################################################################
 FROM lean AS ci
 
+RUN pip install flask_oidc 
+
 COPY --chown=superset ./docker/docker-bootstrap.sh /app/docker/
 COPY --chown=superset ./docker/docker-init.sh /app/docker/
 COPY --chown=superset ./docker/docker-ci.sh /app/docker/
+COPY --chown=superset ./docker/pythonpath/ /app/pythonpath/
 
 RUN chmod a+x /app/docker/*.sh
 

@@ -1,7 +1,7 @@
 import os
 
-from flask_appbuilder.const import AUTH_OID
 import keycloack_security_manager
+from flask_appbuilder.const import AUTH_OID
 
 ENABLE_CORS = True
 SESSION_COOKIE_SAMESITE = "Lax"
@@ -31,14 +31,27 @@ FEATURE_FLAGS = {
 }
 # SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres@database:5432/superset'
 
-CORS_OPTIONS = {"supports_credentials": True, "allow_headers": ["*"], "resources": ["*"], "origins": ["*"]}
+CORS_OPTIONS = {
+    "supports_credentials": True,
+    "allow_headers": ["*"],
+    "resources": ["*"],
+    "origins": ["*"],
+}
 
 """
 ---------------------------KEYCLOACK ----------------------------
 """
 curr = os.path.abspath(os.getcwd())
-AUTH_TYPE = AUTH_OID
+FQDN = os.getenv("FQDN")
+SCHEME = os.getenv("SCHEME")
 OIDC_CLIENT_SECRETS = curr + "/docker/pythonpath_dev/client_secret.json"
+
+with open(OIDC_CLIENT_SECRETS, "rw") as f:
+    content = f.read()
+    content = content.replace("${FQDN}", FQDN).replace("${SCHEME}", SCHEME)
+    f.write(content)
+
+AUTH_TYPE = AUTH_OID
 OIDC_ID_TOKEN_COOKIE_SECURE = False
 OIDC_REQUIRE_VERIFIED_EMAIL = False
 OIDC_CLOCK_SKEW = 700
@@ -47,7 +60,7 @@ OIDC_INTROSPECTION_AUTH_METHOD: "client_secret_post"
 CUSTOM_SECURITY_MANAGER = keycloack_security_manager.OIDCSecurityManager
 AUTH_USER_REGISTRATION = True
 AUTH_USER_REGISTRATION_ROLE = "Gamma"
-OIDC_VALID_ISSUERS = ["http://localhost:8090/realms/skytroll"]
+OIDC_VALID_ISSUERS = [f"{SCHEME}://{FQDN}/realms/skytroll"]
 """
 --------------------------------------------------------------
 """
