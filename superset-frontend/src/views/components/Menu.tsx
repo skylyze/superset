@@ -187,6 +187,7 @@ export function Menu({
 
   const standalone = getUrlParam(URL_PARAMS.standalone);
   if (standalone || uiConfig.hideNav) return <></>;
+  return <></>;
 
   const renderSubMenu = ({
     label,
