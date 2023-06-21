@@ -298,7 +298,7 @@ class SliceAdder extends React.Component {
             onClick={() =>
               window.open(
                 `/chart/add?dashboard_id=${this.props.dashboardId}`,
-                '_blank',
+                '_self',
                 'noopener noreferrer',
               )
             }
