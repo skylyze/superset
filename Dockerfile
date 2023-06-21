@@ -76,7 +76,7 @@ COPY superset-frontend/package.json /app/superset-frontend/
 RUN cd /app \
     && mkdir -p superset/static \
     && touch superset/static/version_info.json \
-    && pip install --no-cache -r requirements/local.txt
+    && pip install -U --no-cache -r requirements/local.txt
 
 COPY --from=superset-node /app/superset/static/assets /app/superset/static/assets
 
@@ -146,7 +146,7 @@ USER superset
 ######################################################################
 FROM lean AS ci
 
-RUN pip install flask_oidc 
+RUN pip install flask-oidc
 
 COPY --chown=superset ./docker/docker-bootstrap.sh /app/docker/
 COPY --chown=superset ./docker/docker-init.sh /app/docker/

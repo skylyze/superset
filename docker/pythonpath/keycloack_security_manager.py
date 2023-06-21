@@ -1,13 +1,15 @@
-from flask import redirect, request
-from flask_appbuilder.security.manager import AUTH_OID
-from superset.security import SupersetSecurityManager
-from flask_oidc import OpenIDConnect
-from flask_appbuilder.security.views import AuthOIDView
-from flask_login import login_user
-from urllib.parse import quote
-from flask_appbuilder.views import ModelView, SimpleFormView, expose
 import logging
 import urllib.parse
+from urllib.parse import quote
+
+from flask import redirect, request
+from flask_appbuilder.security.manager import AUTH_OID
+from flask_appbuilder.security.views import AuthOIDView
+from flask_appbuilder.views import expose, ModelView, SimpleFormView
+from flask_login import login_user
+from flask_oidc import OpenIDConnect
+
+from superset.security import SupersetSecurityManager
 
 LOG = logging.getLogger(__name__)
 
@@ -29,7 +31,9 @@ class AuthOIDCView(AuthOIDView):
         @self.appbuilder.sm.oid.require_login
         def handle_login():
             user = sm.auth_user_oid(oidc.user_getfield("email"))
-            info = oidc.user_getinfo(["preferred_username", "given_name", "family_name", "email"])
+            info = oidc.user_getinfo(
+                ["preferred_username", "given_name", "family_name", "email"]
+            )
             keycloak_user_details = {
                 "username": info.get("preferred_username"),
                 "first_name": info.get("given_name"),
@@ -39,8 +43,14 @@ class AuthOIDCView(AuthOIDView):
             superset_roles = []
             try:
                 superset_roles = oidc.user_getfield(field="realm_access_roles")
-                superset_roles = list(map(lambda x: x if "Superset" in x else None, superset_roles))
-                superset_roles = [role.replace("Superset", "") for role in superset_roles if role is not None]
+                superset_roles = list(
+                    map(lambda x: x if "Superset" in x else None, superset_roles)
+                )
+                superset_roles = [
+                    role.replace("Superset", "")
+                    for role in superset_roles
+                    if role is not None
+                ]
             except Exception as e:
                 LOG.error(e)
             roles = superset_roles if len(superset_roles) > 0 else ["Gamma"]
@@ -74,7 +84,9 @@ class AuthOIDCView(AuthOIDView):
                 user.last_name = keycloak_user_details["last_name"]
                 user.email = keycloak_user_details["email"]
                 sm.update_user(user=user)
-                LOG.info(f"updated user {superset_user_details['first_name']} {superset_user_details['last_name']}")
+                LOG.info(
+                    f"updated user {superset_user_details['first_name']} {superset_user_details['last_name']}"
+                )
             login_user(user, remember=False)
 
             return redirect(self.appbuilder.get_url_for_index)
