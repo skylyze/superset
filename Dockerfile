@@ -18,7 +18,7 @@
 ######################################################################
 # Node stage to deal with static asset construction
 ######################################################################
-ARG PY_VER=3.8.16-slim
+ARG PY_VER=3.9-slim
 FROM node:16-slim AS superset-node
 
 ARG NPM_BUILD_CMD="build"
@@ -65,6 +65,7 @@ RUN mkdir -p ${PYTHONPATH} \
             libsasl2-modules-gssapi-mit \
             libpq-dev \
             libecpg-dev \
+            gettext-base \
         && rm -rf /var/lib/apt/lists/*
 
 COPY ./requirements/*.txt  /app/requirements/
@@ -76,6 +77,7 @@ COPY superset-frontend/package.json /app/superset-frontend/
 RUN cd /app \
     && mkdir -p superset/static \
     && touch superset/static/version_info.json \
+    && pip install --upgrade pip \
     && pip install -U --no-cache -r requirements/local.txt
 
 COPY --from=superset-node /app/superset/static/assets /app/superset/static/assets
