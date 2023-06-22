@@ -44,12 +44,7 @@ CORS_OPTIONS = {
 curr = os.path.abspath(os.getcwd())
 FQDN = os.getenv("FQDN")
 SCHEME = os.getenv("SCHEME")
-OIDC_CLIENT_SECRETS = curr + "/docker/pythonpath_dev/client_secret.json"
-
-with open(OIDC_CLIENT_SECRETS, "rw") as f:
-    content = f.read()
-    content = content.replace("${FQDN}", FQDN).replace("${SCHEME}", SCHEME)
-    f.write(content)
+OIDC_CLIENT_SECRETS = curr + "/pythonpath/client_secret.json"
 
 AUTH_TYPE = AUTH_OID
 OIDC_ID_TOKEN_COOKIE_SECURE = False
@@ -60,8 +55,8 @@ OIDC_INTROSPECTION_AUTH_METHOD: "client_secret_post"
 CUSTOM_SECURITY_MANAGER = keycloack_security_manager.OIDCSecurityManager
 AUTH_USER_REGISTRATION = True
 AUTH_USER_REGISTRATION_ROLE = "Gamma"
-OIDC_VALID_ISSUERS = [f"{SCHEME}://{FQDN}/realms/skytroll"]
+OIDC_VALID_ISSUERS = [f"{SCHEME}://{FQDN}/auth/realms/skytroll"]
 """
 --------------------------------------------------------------
 """
-# fix(dashbaord)
+

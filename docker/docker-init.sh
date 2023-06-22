@@ -22,7 +22,7 @@ set -e
 #
 /app/docker/docker-bootstrap.sh
 
-STEP_CNT=4
+STEP_CNT=5
 
 echo_step() {
 cat <<EOF
@@ -76,3 +76,9 @@ if [ "$SUPERSET_LOAD_EXAMPLES" = "yes" ]; then
     fi
     echo_step "4" "Complete" "Loading examples"
 fi
+
+echo_step "5" "Starting" "Substituting ENV variables in config files"
+cd /app/pythonpath &&\
+envsubst '${FQDN} ${SCHEME}' < client_secret.json > client_secret.json.tmp &&\
+mv client_secret.json.tmp client_secret.json
+echo_step "5" "Complete" "Substituting ENV variables in config files"

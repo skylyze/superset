@@ -8,6 +8,7 @@ from flask_appbuilder.security.views import AuthOIDView
 from flask_appbuilder.views import expose, ModelView, SimpleFormView
 from flask_login import login_user
 from flask_oidc import OpenIDConnect
+import os
 
 from superset.security import SupersetSecurityManager
 
@@ -100,7 +101,8 @@ class AuthOIDCView(AuthOIDView):
         oidc.logout()
         super(AuthOIDCView, self).logout()
         # redirect_url = urllib.parse.quote_plus(request.url_root.strip("/") + self.appbuilder.get_url_for_login)
-        redirect_url = "http://localhost:8088/login"
+        FQDN = os.getenv("FQDN")
+        redirect_url = f"http://{FQDN}:8088/login"
 
         return redirect(
             oidc.client_secrets.get("issuer")
