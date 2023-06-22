@@ -1,4 +1,5 @@
 import logging
+import os
 import urllib.parse
 from urllib.parse import quote
 
@@ -8,7 +9,6 @@ from flask_appbuilder.security.views import AuthOIDView
 from flask_appbuilder.views import expose, ModelView, SimpleFormView
 from flask_login import login_user
 from flask_oidc import OpenIDConnect
-import os
 
 from superset.security import SupersetSecurityManager
 
