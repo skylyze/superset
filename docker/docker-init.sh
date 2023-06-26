@@ -79,6 +79,6 @@ fi
 
 echo_step "5" "Starting" "Substituting ENV variables in config files"
 cd /app/pythonpath &&\
-envsubst '${FQDN} ${SCHEME}' < client_secret.json > client_secret.json.tmp &&\
+envsubst '${FQDN} ${SCHEME} ${KEYCLOAK_CLIENT_SECRET}' < client_secret.json > client_secret.json.tmp &&\
 mv client_secret.json.tmp client_secret.json
 echo_step "5" "Complete" "Substituting ENV variables in config files"

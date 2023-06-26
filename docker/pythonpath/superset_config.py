@@ -45,15 +45,16 @@ AUTH_TYPE = AUTH_OID
 OIDC_ID_TOKEN_COOKIE_SECURE = False
 OIDC_REQUIRE_VERIFIED_EMAIL = False
 OIDC_CLOCK_SKEW = 700
-OIDC_OPENID_REALM: "master"
-OIDC_INTROSPECTION_AUTH_METHOD: "client_secret_post"
+OIDC_OPENID_REALM = "skytroll"
+OIDC_INTROSPECTION_AUTH_METHOD = "client_secret_post"
 CUSTOM_SECURITY_MANAGER = keycloack_security_manager.OIDCSecurityManager
 AUTH_USER_REGISTRATION = True
 AUTH_USER_REGISTRATION_ROLE = "Gamma"
-OIDC_VALID_ISSUERS = [f"{SCHEME}://{FQDN}/auth/realms/skytroll"]
+OIDC_VALID_ISSUERS = [f"{SCHEME}://{FQDN}/auth/realms/skytroll", f"{SCHEME}://{FQDN}"]
 """
 --------------------------------------------------------------
 """
+
 
 # Changing default landing page
 
