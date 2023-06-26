@@ -24,7 +24,7 @@ FEATURE_FLAGS = {
     "CACHE_QUERY_BY_USER": False,
 }
 
-SQLALCHEMY_DATABASE_URI = "postgresql://postgres:postgres@database:5432/superset"
+SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
 
 CORS_OPTIONS = {
     "supports_credentials": True,
