@@ -58,11 +58,20 @@ OIDC_VALID_ISSUERS = [f"{SCHEME}://{FQDN}/auth/realms/skytroll", f"{SCHEME}://{F
 
 # Changing default landing page
 
+# Specify the environment variable name
+landing_page_env_var_name = "LANDING_PAGE_URL"
+
+# Set the default value for landing page
+landing_page_url = "/superset/welcome/"
+
+# Retrieve the environment variable value or use the default value
+landing_page_url = os.environ.get(landing_page_env_var_name, landing_page_url)
+
 
 class SupersetLandingPage(IndexView):
     @expose("/")
     def index(self) -> FlaskResponse:
-        return redirect("/dashboard/list/")
+        return redirect(landing_page_url)
 
 
 FAB_INDEX_VIEW = f"{SupersetLandingPage.__module__}.{SupersetLandingPage.__name__}"
