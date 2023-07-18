@@ -7,6 +7,11 @@ from flask_appbuilder.const import AUTH_OID
 
 from superset.superset_typing import FlaskResponse
 
+LANGUAGES = {
+    "en": {"flag": "us", "name": "English"},
+    "de": {"flag": "de", "name": "Deutsch"},
+}
+
 ENABLE_CORS = True
 SESSION_COOKIE_SAMESITE = "Lax"
 SESSION_COOKIE_SECURE = False
