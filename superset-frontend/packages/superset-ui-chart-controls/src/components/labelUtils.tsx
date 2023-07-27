@@ -59,6 +59,10 @@ export const isLabelTruncated = (labelRef?: React.RefObject<any>): boolean =>
 export const getColumnLabelText = (column: ColumnMeta): string =>
   column.verbose_name || column.column_name;
 
+// translation stuff
+
+export const getLocalColName = (name: string): string => t(name);
+
 export const getColumnTooltipNode = (
   column: ColumnMeta,
   labelRef?: React.RefObject<any>,

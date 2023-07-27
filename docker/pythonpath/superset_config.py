@@ -1,11 +1,14 @@
 import os
 
 import keycloack_security_manager
-from flask import Flask, redirect
+from flask import redirect
 from flask_appbuilder import expose, IndexView
 from flask_appbuilder.const import AUTH_OID
 
+from dataset_translations import include_language
 from superset.superset_typing import FlaskResponse
+
+lang_trans = include_language()
 
 LANGUAGES = {
     "en": {"flag": "us", "name": "English"},

@@ -84,10 +84,14 @@ COPY --from=superset-node /app/superset/static/assets /app/superset/static/asset
 
 ## Lastly, let's install superset itself
 COPY superset /app/superset
-COPY setup.py MANIFEST.in README.md /app/
+COPY dataset_translations /app/dataset_translations
+COPY setup.py MANIFEST.in README.md dataset_translations.py /app/
+
+
 RUN cd /app \
         && chown -R superset:superset * \
         && pip install -e . \
+        && python3 dataset_translations.py \
         && flask fab babel-compile --target superset/translations
 
 COPY ./docker/run-server.sh /usr/bin/

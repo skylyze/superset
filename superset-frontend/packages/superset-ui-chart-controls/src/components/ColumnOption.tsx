@@ -22,7 +22,11 @@ import { Tooltip } from './Tooltip';
 import { ColumnTypeLabel } from './ColumnTypeLabel/ColumnTypeLabel';
 import CertifiedIconWithTooltip from './CertifiedIconWithTooltip';
 import { ColumnMeta } from '../types';
-import { getColumnLabelText, getColumnTooltipNode } from './labelUtils';
+import {
+  getColumnLabelText,
+  getLocalColName,
+  getColumnTooltipNode,
+} from './labelUtils';
 import { SQLPopover } from './SQLPopover';
 
 export type ColumnOptionProps = {
@@ -66,7 +70,10 @@ export function ColumnOption({
           }
           ref={labelRef}
         >
-          {getColumnLabelText(column)}
+          {
+            // getColumnLabelText(column)
+            getLocalColName(getColumnLabelText(column))
+          }
         </span>
       </Tooltip>
       {hasExpression && <SQLPopover sqlExpression={expression} />}
