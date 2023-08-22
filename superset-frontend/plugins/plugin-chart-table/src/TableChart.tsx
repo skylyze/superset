@@ -540,7 +540,7 @@ export default function TableChart<D extends DataRecord = DataRecord>(
                 alignItems: 'flex-end',
               }}
             >
-              <span data-column-name={col.id}>{label}</span>
+              <span data-column-name={col.id}>{t(label)}</span>
               <SortIcon column={col} />
             </div>
           </th>

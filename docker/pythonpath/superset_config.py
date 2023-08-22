@@ -41,9 +41,9 @@ CORS_OPTIONS = {
     "origins": ["*"],
 }
 
-"""
----------------------------KEYCLOACK ----------------------------
-"""
+
+# ---------------------------KEYCLOACK ----------------------------
+
 curr = os.path.abspath(os.getcwd())
 FQDN = os.getenv("FQDN")
 SCHEME = os.getenv("SCHEME")
@@ -59,9 +59,6 @@ CUSTOM_SECURITY_MANAGER = keycloack_security_manager.OIDCSecurityManager
 AUTH_USER_REGISTRATION = True
 AUTH_USER_REGISTRATION_ROLE = "Gamma"
 OIDC_VALID_ISSUERS = [f"{SCHEME}://{FQDN}/auth/realms/skytroll", f"{SCHEME}://{FQDN}"]
-"""
---------------------------------------------------------------
-"""
 
 
 # Changing default landing page

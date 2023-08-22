@@ -48,10 +48,10 @@ function displayHeaderCell(
       >
         {ArrowIcon}
       </span>
-      <span className="toggle-val">{parseLabel(name)}</span>
+      <span className="toggle-val">{parseLabel(t(name))}</span>
     </span>
   ) : (
-    parseLabel(name)
+    parseLabel(t(name))
   );
 }
 
