@@ -69,7 +69,7 @@ function formatValue(
     // handle them here too
     (value instanceof DateWithFormatter && value.input === null)
   ) {
-    return [false, 'N/A'];
+    return [false, 'null'];
   }
   if (formatter) {
     // in case percent metric can specify percent format in the future
