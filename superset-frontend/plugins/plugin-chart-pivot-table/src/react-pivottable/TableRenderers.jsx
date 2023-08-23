@@ -38,6 +38,13 @@ function displayHeaderCell(
   namesMapping,
 ) {
   const name = namesMapping[value] || value;
+  let trans = name;
+  try {
+    trans = t(trans);
+  } catch (err) {
+    // @ts-ignore
+    trans = name;
+  }
   return needToggle ? (
     <span className="toggle-wrapper">
       <span
@@ -48,10 +55,10 @@ function displayHeaderCell(
       >
         {ArrowIcon}
       </span>
-      <span className="toggle-val">{parseLabel(name)}</span>
+      <span className="toggle-val">{parseLabel(trans)}</span>
     </span>
   ) : (
-    parseLabel(name)
+    parseLabel(trans)
   );
 }
 
